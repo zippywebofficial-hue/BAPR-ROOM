@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAPR | Boutique Hotel Chain Chennai</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --bg-dark: #0f1012;
+            --card-bg: rgba(22, 24, 29, 0.75);
+            --gold: #D4AF37;
+            --gold-light: #F3E5AB;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border: rgba(212, 175, 55, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; line-height: 1.6; }
+
+        /* Typography */
+        h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+
+        /* Navigation */
+        nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(15, 16, 18, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 1.2rem 8%; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: 0.25em; color: #fff; text-transform: uppercase; }
+        .logo span { color: var(--gold); }
+        .nav-btn { background: var(--gold); color: #000; border: none; padding: 0.6rem 1.4rem; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.1em; border-radius: 4px; cursor: pointer; text-transform: uppercase; }
+
+        /* Hero Section */
+        .hero { min-height: 100vh; padding: 8rem 8% 4rem 8%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.08) 0%, rgba(15, 16, 18, 1) 70%); }
+        .hero-tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.3em; color: var(--gold); margin-bottom: 1rem; border: 1px solid var(--border); padding: 6px 16px; border-radius: 30px; background: rgba(212, 175, 55, 0.05); }
+        .hero h1 { font-size: clamp(2.5rem, 5vw, 4.2rem); font-weight: 400; max-width: 900px; margin-bottom: 1rem; line-height: 1.15; }
+        .hero p { color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin-bottom: 2.5rem; }
+
+        /* Quick Booking Bar */
+        .booking-bar { background: var(--card-bg); border: 1px solid var(--border); backdrop-filter: blur(20px); border-radius: 12px; padding: 1.2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; width: 100%; max-width: 1000px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .input-group { display: flex; flex-direction: column; text-align: left; }
+        .input-group label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 0.4rem; }
+        .input-group select, .input-group input { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 0.7rem; border-radius: 6px; outline: none; }
+        .book-btn { background: var(--gold); color: #000; border: none; font-weight: 700; border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.85rem; height: 100%; min-height: 45px; }
+
+        /* Highlights Bar */
+        .highlights { width: 100%; border-y: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); padding: 1.5rem 8%; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 1.5rem; text-align: center; }
+        .hl-item { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem; }
+        .hl-item span { color: var(--gold); }
+
+        /* Layout Grid Sections */
+        .section { padding: 6rem 8%; }
+        .sec-title { text-align: center; margin-bottom: 3.5rem; }
+        .sec-title h2 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .sec-title p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Location Showcase Cards */
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+        .card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; transition: transform 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: var(--border); }
+        .card-img { height: 220px; background-size: cover; background-position: center; position: relative; }
+        .badge { position: absolute; top: 1rem; right: 1rem; background: rgba(0,0,0,0.75); border: 1px solid var(--gold); color: var(--gold); padding: 4px 10px; font-size: 0.65rem; border-radius: 20px; text-transform: uppercase; }
+        .card-body { padding: 1.8rem; }
+        .card-body h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .card-body p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.2rem; }
+
+        /* Pricing Matrix */
+        .room-card { display: flex; flex-direction: column; justify-content: space-between; }
+        .price { font-size: 1.4rem; color: var(--gold); font-weight: 700; margin: 1rem 0; }
+        .price span { font-size: 0.85rem; color: var(--text-muted); font-weight: 400; }
+
+        /* Corporate Long-Stay Calculator */
+        .calc-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 3rem; max-width: 800px; margin: 0 auto; text-align: center; }
+        .slider-container { margin: 2rem 0; }
+        input[type=range] { width: 100%; accent-color: var(--gold); }
+        .calc-result { font-size: 2.2rem; font-weight: 700; color: var(--gold); margin-top: 1rem; }
+
+        /* Breakfast Banner */
+        .bf-banner { background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=1200&q=80') center/cover; padding: 5rem 8%; border-radius: 16px; text-align: center; border: 1px solid var(--border); }
+
+        /* Reviews */
+        .rev-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; }
+
+        /* Footer */
+        footer { background: #08080a; border-top: 1px solid rgba(255,255,255,0.05); padding: 4rem 8% 2rem 8%; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+        footer h4 { color: var(--gold); margin-bottom: 1rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; }
+        footer p, footer a { color: var(--text-muted); font-size: 0.85rem; text-decoration: none; display: block; margin-bottom: 0.5rem; }
+
+        /* Floating WhatsApp Button */
+        .wa-float { position: fixed; bottom: 2rem; right: 2rem; background: #25D366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; box-shadow: 0 10px 20px rgba(0,0,0,0.5); z-index: 100; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">VAPR <span>ROOMS</span></div>
+        <button class="nav-btn">Reserve Direct</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-tag">Guindy & Ashok Nagar • Chennai</div>
+        <h1>Elevated Living for Corporate Travelers & Families</h1>
+        <p>Service Apartment Luxury Meets Hotel Comfort in Chennai’s Prime Business & Shopping Districts.</p>
+
+        <!-- Quick Booking Bar -->
+        <div class="booking-bar">
+            <div class="input-group">
+                <label>Location</label>
+                <select><option>Guindy Branch</option><option>Ashok Nagar Branch</option></select>
+            </div>
+            <div class="input-group">
+                <label>Check-In</label>
+                <input type="date">
+            </div>
+            <div class="input-group">
+                <label>Check-Out</label>
+                <input type="date">
+            </div>
+            <div class="input-group">
+                <button class="book-btn">Check Availability</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Highlights Bar -->
+    <div class="highlights">
+        <div class="hl-item"><span>✦</span> Long Stay Discounts (7+ Days)</div>
+        <div class="hl-item"><span>✦</span> Ergonomic Workstations</div>
+        <div class="hl-item"><span>✦</span> Gourmet Breakfast Included</div>
+        <div class="hl-item"><span>✦</span> 24/7 Security & Housekeeping</div>
+    </div>
+
+    <!-- Locations Section -->
+    <section class="section">
+        <div class="sec-title">
+            <h2>Prime Locations</h2>
+            <p>Strategically situated in Chennai's key commercial hubs</p>
+        </div>
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80');">
+                    <span class="badge">Near Tech Parks & Airport</span>
+                </div>
+                <div class="card-body">
+                    <h3>Guindy Branch</h3>
+                    <p>Designed for corporate executives with seamless connectivity to Chennai International Airport & Olympus Tech Park.</p>
+                    <button class="nav-btn" style="width: 100%;">View Route & Details</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80');">
+                    <span class="badge">City Center & Shopping Hub</span>
+                </div>
+                <div class="card-body">
+                    <h3>Ashok Nagar Branch</h3>
+                    <p>Ideal for long-staying families and business travelers seeking central city connectivity and dining options.</p>
+                    <button class="nav-btn" style="width: 100%;">View Route & Details</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Room Categories Section -->
+    <section class="section" style="background: rgba(255,255,255,0.01);">
+        <div class="sec-title">
+            <h2>Luxury Accommodations</h2>
+            <p>Save 15% when you book directly with us</p>
+        </div>
+        <div class="grid-2">
+            <div class="card room-card">
+                <div class="card-body">
+                    <span style="color: var(--gold); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;">CORPORATE DEDICATED</span>
+                    <h3>Deluxe Studio Suite</h3>
+                    <p>Work-optimized layout featuring high-speed optical fiber WiFi, ergonomic chair, and king-size orthopedic bed.</p>
+                    <div class="price">₹3,499 <span>/ night</span></div>
+                    <button class="book-btn" style="width: 100%;">Book Direct & Save 15%</button>
+                </div>
+            </div>
+            <div class="card room-card">
+                <div class="card-body">
+                    <span style="color: var(--gold); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;">FAMILY & LONG STAY</span>
+                    <h3>Executive Family Suite</h3>
+                    <p>Spacious living environment with a dedicated kitchenette, private balcony, and premium modern furnishings.</p>
+                    <div class="price">₹5,299 <span>/ night</span></div>
+                    <button class="book-btn" style="width: 100%;">Book Direct & Save 15%</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Long-Stay Calculator -->
+    <section class="section">
+        <div class="calc-box">
+            <h2 class="serif">Corporate & Long-Stay Savings Calculator</h2>
+            <p style="color: var(--text-muted); margin-top: 0.5rem;">Slide to select your stay duration and view auto-tiered discounts.</p>
+            <div class="slider-container">
+                <input type="range" id="daysSlider" min="1" max="30" value="7" oninput="updateSavings()">
+                <div style="margin-top: 1rem; font-weight: 600;">Stay Duration: <span id="daysCount" style="color: var(--gold);">7 Days</span></div>
+            </div>
+            <div>Estimated Tiered Discount:</div>
+            <div class="calc-result" id="discountPercent">20% OFF</div>
+        </div>
+    </section>
+
+    <!-- Breakfast Section -->
+    <section class="section">
+        <div class="bf-banner">
+            <h2 class="serif" style="font-size: 2.8rem; margin-bottom: 1rem;">"We Take Breakfast Very Seriously"</h2>
+            <p style="color: #ccc; max-width: 600px; margin: 0 auto 2rem auto;">Start your day in Chennai with freshly prepared, gourmet South Indian & Continental breakfasts served daily.</p>
+            <button class="nav-btn">Explore Breakfast Menu</button>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section">
+        <div class="sec-title">
+            <h2>Corporate Guest Experiences</h2>
+            <p>Rated 4.9★ on Google Reviews</p>
+        </div>
+        <div class="grid-2">
+            <div class="rev-card">
+                <div style="color: var(--gold); margin-bottom: 0.5rem;">★★★★★</div>
+                <p style="font-style: italic; font-size: 0.9rem;">"Extremely well-maintained boutique stay in Guindy. High-speed internet made working remotely effortless."</p>
+                <div style="margin-top: 1rem; font-weight: 600; font-size: 0.85rem;">- Rajesh Kumar (Corporate Traveler)</div>
+            </div>
+            <div class="rev-card">
+                <div style="color: var(--gold); margin-bottom: 0.5rem;">★★★★★</div>
+                <p style="font-style: italic; font-size: 0.9rem;">"The long stay discount made our 2-week relocation to Ashok Nagar super cost-effective. Excellent housekeeping!"</p>
+                <div style="margin-top: 1rem; font-weight: 600; font-size: 0.85rem;">- Priya Sharma (Relocation Stay)</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div>
+            <h4>VAPR ROOMS</h4>
+            <p>Chennai’s Premier Boutique Hotel Chain offering tailored service apartments for corporate stays and long-term guests.</p>
+        </div>
+        <div>
+            <h4>Locations</h4>
+            <p>Guindy Branch (Near Airport)</p>
+            <p>Ashok Nagar Branch (City Center)</p>
+        </div>
+        <div>
+            <h4>Direct Reservations</h4>
+            <p>Hotline: +91 98765 43210</p>
+            <p>Email: stay@vaprrooms.com</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/" class="wa-float" target="_blank">💬</a>
+
+    <!-- Interactive Script -->
+    <script>
+        function updateSavings() {
+            const days = document.getElementById('daysSlider').value;
+            document.getElementById('daysCount').innerText = days + (days == 1 ? " Day" : " Days");
+            
+            let discount = "Standard Rates";
+            if (days >= 30) discount = "35% OFF (Monthly Corporate)";
+            else if (days >= 14) discount = "25% OFF (Bi-Weekly)";
+            else if (days >= 7) discount = "15% OFF (Long Stay)";
+            else if (days >= 3) discount = "5% OFF (Short Stay)";
+            
+            document.getElementById('discountPercent').innerText = discount;
+        }
+    </script>
+</body>
+</html>
